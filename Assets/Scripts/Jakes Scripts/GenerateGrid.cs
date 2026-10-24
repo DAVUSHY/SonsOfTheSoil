@@ -20,6 +20,8 @@ public class GenerateGrid : MonoBehaviour
 
     public float gridOffset = 1.1f;
 
+    public bool infinite = true; 
+
     private List<Vector3> blockPositions = new List<Vector3>();
 
     private Vector3 startPos;
@@ -27,23 +29,57 @@ public class GenerateGrid : MonoBehaviour
     private Hashtable blockContainer = new Hashtable();
     void Start()
     {
-        for (int i = 0; i < worldSizeX; i++)
+        if (!infinite)
         {
-            for (int y = 0; y < worldSizeZ; y++)
+            for (int i = 0; i < worldSizeX; i++)
             {
-                Vector3 pos = new Vector3(i * gridOffset, Noisegeneration(i, y, 8f) * noiseHeight, y * gridOffset);
+                for (int y = 0; y < worldSizeZ; y++)
+                {
+                    Vector3 pos = new Vector3(i * gridOffset , Noisegeneration(i, y, 8f) * noiseHeight, y * gridOffset);
 
-                GameObject block = Instantiate(blockGameObject, pos, Quaternion.identity) as GameObject;
+                    GameObject block = Instantiate(blockGameObject, pos, Quaternion.identity) as GameObject;
 
-                blockPositions.Add(block.transform.position);
+                    blockContainer.Add(pos, block);
 
-                block.transform.SetParent(this.transform);
+                    blockPositions.Add(block.transform.position);
+
+                    block.transform.SetParent(this.transform);
+                }
             }
+            SpawnObject();
         }
-        SpawnObject();
     }
 
-    //YOU GOT HERE
+    private void Update()
+    {
+        if (infinite)
+        {
+            if (Mathf.Abs(xPlayerMove) >= 1 || Mathf.Abs(zPlayerMove) >= 1)
+            {
+                for (int i = -worldSizeX; i < worldSizeX; i++)
+                {
+                    for (int y = -worldSizeZ; y < worldSizeZ; y++)
+                    {
+                        Vector3 pos = new Vector3(i * 1 + xPlayerLocation, Noisegeneration(i + xPlayerLocation, y + zPlayerLocation, 8f) * noiseHeight, y * 1 + zPlayerLocation);
+
+                        if (!blockContainer.ContainsKey(pos))
+                        {
+                            GameObject block = Instantiate(blockGameObject, pos, Quaternion.identity) as GameObject;
+
+                            blockContainer.Add(pos, block);
+
+                            blockPositions.Add(block.transform.position);
+
+                            block.transform.SetParent(this.transform);
+                        }
+
+
+                    }
+                }
+            }
+        }
+    }
+
     public int xPlayerMove
     {
         get
@@ -56,6 +92,22 @@ public class GenerateGrid : MonoBehaviour
         get
         {
             return (int)(player.transform.position.z - startPos.z);
+        }
+    }
+
+    private int xPlayerLocation
+    {
+        get
+        {
+            return (int)Mathf.Floor(player.transform.position.x);
+        }
+    }
+
+    private int zPlayerLocation
+    {
+        get
+        {
+            return (int)Mathf.Floor(player.transform.position.z);
         }
     }
 
