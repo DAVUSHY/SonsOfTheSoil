@@ -27,6 +27,8 @@ public class GenerateGrid : MonoBehaviour
     private Vector3 startPos;
 
     private Hashtable blockContainer = new Hashtable();
+
+    //Spawns a worldSizeX by worldSizeZ grid using the noise hight to chnage the variation of the blocks hight
     void Start()
     {
         if (!infinite)
@@ -49,6 +51,7 @@ public class GenerateGrid : MonoBehaviour
             SpawnObject();
         }
     }
+
 
     private void Update()
     {
