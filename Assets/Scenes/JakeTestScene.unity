@@ -129,7 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 19428101}
   - component: {fileID: 19428100}
-  - component: {fileID: 19428099}
+  - component: {fileID: 19428102}
+  - component: {fileID: 19428103}
+  - component: {fileID: 19428104}
   m_Layer: 0
   m_Name: WorldGenerator
   m_TagString: Untagged
@@ -137,26 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &19428099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19428098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94907bfd1075f8c4fbecf6c6a2be1beb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GenerateGrid
-  blockGameObject: {fileID: 6257555030078859217, guid: 5b1214cc4c6a02e4ab92bf69ad33bdd6, type: 3}
-  objToSpawn: {fileID: 5924444512804761586, guid: 4f912dd6c763d3a4fb4dca0589cf048a, type: 3}
-  player: {fileID: 1895660760}
-  worldSizeX: 10
-  worldSizeZ: 10
-  noiseHeight: 3
-  gridOffset: 1.1
-  infinite: 1
 --- !u!33 &19428100
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -180,6 +162,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19428102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19428098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6937cb051c6b3db46817cbfd31688c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeshGenerator
+  noiseScale: 0.05
+  heightMultiplier: 30
+  canyonFloorHalfWidth: 5
+  canyonWallWidth: 10
+  canyonFloorHeight: -20
+  worldX: 100
+  worldZ: 100
+--- !u!23 &19428103
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19428098}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6eaca79779b52ca46b13fa3e16d68e43, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &19428104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19428098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42339e4e150556f449e6bfe6f3bd7938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanyonPathGenerator
+  worldX: 100
+  worldZ: 100
+  controlPointCount: 8
+  windingAmount: 0.3
+  seed: 12345
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +636,6 @@ GameObject:
   - component: {fileID: 644258925}
   - component: {fileID: 644258924}
   - component: {fileID: 644258923}
-  - component: {fileID: 644258922}
   m_Layer: 0
   m_Name: MeshHolder
   m_TagString: Untagged
@@ -577,20 +643,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &644258922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 644258921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6937cb051c6b3db46817cbfd31688c0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeshGenerator
-  worldX: 10
-  worldZ: 10
 --- !u!23 &644258923
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -656,7 +708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644258921}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 21.08, y: 1.82, z: 45.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -813,6 +865,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1895660761}
-  - {fileID: 644258925}
   - {fileID: 19428101}
   - {fileID: 3531437361215212772}
+  - {fileID: 644258925}
