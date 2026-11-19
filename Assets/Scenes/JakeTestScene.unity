@@ -130,8 +130,9 @@ GameObject:
   - component: {fileID: 19428101}
   - component: {fileID: 19428100}
   - component: {fileID: 19428102}
-  - component: {fileID: 19428103}
   - component: {fileID: 19428104}
+  - component: {fileID: 19428105}
+  - component: {fileID: 19428103}
   m_Layer: 0
   m_Name: WorldGenerator
   m_TagString: Untagged
@@ -174,13 +175,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6937cb051c6b3db46817cbfd31688c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeshGenerator
+  worldSeed: 1555438278
+  randomiseSeed: 0
   noiseScale: 0.05
   heightMultiplier: 30
+  worldX: 250
+  worldZ: 250
   canyonFloorHalfWidth: 5
-  canyonWallWidth: 10
+  canyonWallWidth: 5
+  extraWidth: 10
+  areaSpacing: 40
+  areaLength: 12
   canyonFloorHeight: -20
-  worldX: 100
-  worldZ: 100
+  maxWalkableSlope: 30
+  grassColor: {r: 0.25, g: 0.45, b: 0.18, a: 1}
+  rockColor: {r: 0.35, g: 0.35, b: 0.33, a: 1}
+  rockSlopeStart: 30
+  rockSlopeEnd: 60
+  showWalkableArea: 1
 --- !u!23 &19428103
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -206,7 +218,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6eaca79779b52ca46b13fa3e16d68e43, type: 2}
+  - {fileID: 2100000, guid: 0ad61266b87bc0d4783c9d5477ee0c71, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -247,6 +259,25 @@ MonoBehaviour:
   controlPointCount: 8
   windingAmount: 0.3
   seed: 12345
+  generateBranches: 1
+  branchCount: 8
+  branchPointCount: 5
+  branchLength: 60
+  branchWindingAmount: 0.2
+  reconnectionChance: 0.4
+  branchEdgeMargin: 20
+--- !u!114 &19428105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19428098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c1ba3007523d0498571597433d3160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainConnectivityValidator
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
